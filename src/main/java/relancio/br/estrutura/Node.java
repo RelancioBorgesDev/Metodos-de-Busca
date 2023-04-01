@@ -2,19 +2,26 @@ package relancio.br.estrutura;
 
 import java.util.Objects;
 
-public class Node {
+public class Node  {
     private String nome;
+    private boolean visited;
 
     public Node(String nome) {
         this.nome = nome;
+        this.visited = false;
     }
 
     public String getNome() {
         return nome;
     }
 
+    public boolean isVisited() {
+        return visited;
+    }
 
-
+    public void setVisited(boolean visited) {
+        this.visited = visited;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -33,4 +40,6 @@ public class Node {
     public String toString() {
         return "Cidade: " + nome;
     }
+
+
 }

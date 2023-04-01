@@ -58,9 +58,9 @@ public class App {
         gr.addVertice(new Node("Pitesti"), new Node("Craiova"));
         gr.addVertice(new Node("Pitesti"), new Node("Bucuresti"));
 
+        System.out.println(gr);
+        System.out.println(gr.BFS(new Node("Lugoj"), new Node("Bucuresti")));
 
-
-        System.out.println(gr.toString());
 
     }
 }

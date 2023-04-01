@@ -1,7 +1,6 @@
 package relancio.br.estrutura;
 
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.*;
 
 public class Graph {
     private HashMap<Node, LinkedList<Node>> mapaAdjacente;
@@ -29,6 +28,29 @@ public class Graph {
     }
 
 
+    public LinkedList<Node> BFS(Node inicio, Node fim){
+        Queue<Node> queue= new LinkedList<>();
+        HashSet<String> visiteds = new HashSet<>();
+        queue.add(inicio);
+        LinkedList<Node> ll = new LinkedList<>();
+        while (!queue.isEmpty()){
+            Node atual = queue.remove();
+            if(atual.equals(fim)){
+                return ll;
+            }else{
+                for(Node adjacente: mapaAdjacente.get(atual)){
+                    if(!visiteds.contains(adjacente.getNome())){
+                        ll.add(adjacente);
+                        visiteds.add(adjacente.getNome());
+                        queue.add(adjacente);
+                    }
+                }
+                visiteds.add(atual.getNome());
+            }
+        }
+
+        return ll;
+    }
 
 
     @Override
