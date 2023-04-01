@@ -60,7 +60,7 @@ public class App {
 
         System.out.println(gr);
         System.out.println(gr.BFS(new Node("Lugoj"), new Node("Bucuresti")));
-
+        System.out.println(gr.DFS(new Node("Lugoj"), new Node("Bucuresti")));
 
     }
 }

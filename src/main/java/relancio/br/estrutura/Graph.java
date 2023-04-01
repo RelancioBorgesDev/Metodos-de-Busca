@@ -3,8 +3,7 @@ package relancio.br.estrutura;
 import java.util.*;
 
 public class Graph {
-    private HashMap<Node, LinkedList<Node>> mapaAdjacente;
-
+    private final HashMap<Node, LinkedList<Node>> mapaAdjacente;
 
     public Graph() {
         mapaAdjacente = new HashMap<>();
@@ -27,7 +26,6 @@ public class Graph {
 
     }
 
-
     public LinkedList<Node> BFS(Node inicio, Node fim){
         Queue<Node> queue= new LinkedList<>();
         HashSet<String> visiteds = new HashSet<>();
@@ -36,6 +34,7 @@ public class Graph {
         while (!queue.isEmpty()){
             Node atual = queue.remove();
             if(atual.equals(fim)){
+                System.out.println("BFS: " + ll.size());
                 return ll;
             }else{
                 for(Node adjacente: mapaAdjacente.get(atual)){
@@ -52,6 +51,33 @@ public class Graph {
         return ll;
     }
 
+    public LinkedList<Node> DFS(Node inicio, Node fim){
+        LinkedList<Node> ll = new LinkedList<>();
+        Stack<Node> stack = new Stack<>();
+        HashSet<String> visiteds = new HashSet<>();
+        stack.push(inicio);
+        int count = 0;
+
+        while (!stack.isEmpty()){
+            Node atual = stack.pop();
+
+            if(atual.equals(fim)){
+                System.out.println("DFS: " + ll.size());
+                return ll;
+            }
+            for(Node adjacente: mapaAdjacente.get(atual)){
+                if(!visiteds.contains(adjacente.getNome())){
+                    ll.add(adjacente);
+                    visiteds.add(adjacente.getNome());
+                    stack.add(adjacente);
+                    count++;
+                }
+            }
+            visiteds.add(atual.getNome());
+        }
+
+        return ll;
+    }
 
     @Override
     public String toString() {

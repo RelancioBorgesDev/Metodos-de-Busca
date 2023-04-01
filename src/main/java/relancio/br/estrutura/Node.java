@@ -4,23 +4,23 @@ import java.util.Objects;
 
 public class Node  {
     private String nome;
-    private boolean visited;
+    private Integer valor;
 
+
+    public Node(Integer valor) {
+        this.valor = valor;
+
+    }
     public Node(String nome) {
         this.nome = nome;
-        this.visited = false;
     }
 
     public String getNome() {
         return nome;
     }
 
-    public boolean isVisited() {
-        return visited;
-    }
-
-    public void setVisited(boolean visited) {
-        this.visited = visited;
+    public Integer getValor() {
+        return valor;
     }
 
     @Override
