@@ -26,58 +26,87 @@ public class Graph {
 
     }
 
-    public LinkedList<Node> BFS(Node inicio, Node fim){
-        Queue<Node> queue= new LinkedList<>();
-        HashSet<String> visiteds = new HashSet<>();
+    public LinkedList<Node> BFS(Node inicio, Node fim) {
+        Queue<Node> queue = new LinkedList<>();
+        Set<String> visited = new LinkedHashSet<>();
+        LinkedList<Node> path = new LinkedList<>();
+
         queue.add(inicio);
-        LinkedList<Node> ll = new LinkedList<>();
-        while (!queue.isEmpty()){
+        visited.add(inicio.getNome());
+
+        while (!queue.isEmpty()) {
             Node atual = queue.remove();
-            if(atual.equals(fim)){
-                System.out.println("BFS: " + ll.size());
-                return ll;
-            }else{
-                for(Node adjacente: mapaAdjacente.get(atual)){
-                    if(!visiteds.contains(adjacente.getNome())){
-                        ll.add(adjacente);
-                        visiteds.add(adjacente.getNome());
+            visited.add(atual.getNome());
+            if (atual.equals(fim)) {
+                System.out.println("BFS: " + path.size());
+                return path;
+            } else {
+                LinkedList<Node> adjacentes = mapaAdjacente.get(atual);
+                for (Node adjacente : adjacentes) {
+                    if (!visited.contains(adjacente.getNome())) {
+                        path.add(adjacente);
+                        visited.add(adjacente.getNome());
                         queue.add(adjacente);
                     }
                 }
-                visiteds.add(atual.getNome());
+                visited.add(atual.getNome());
             }
         }
 
-        return ll;
+        return path;
     }
 
+
     public LinkedList<Node> DFS(Node inicio, Node fim){
-        LinkedList<Node> ll = new LinkedList<>();
+        LinkedList<Node> path = new LinkedList<>();
         Stack<Node> stack = new Stack<>();
-        HashSet<String> visiteds = new HashSet<>();
+        Set<String> visited = new LinkedHashSet<>();
         stack.push(inicio);
         int count = 0;
 
         while (!stack.isEmpty()){
             Node atual = stack.pop();
+            visited.add(atual.getNome());
+            path.add(atual);
 
             if(atual.equals(fim)){
-                System.out.println("DFS: " + ll.size());
-                return ll;
+                System.out.println("DFS: " + path.size());
+                return path;
             }
-            for(Node adjacente: mapaAdjacente.get(atual)){
-                if(!visiteds.contains(adjacente.getNome())){
-                    ll.add(adjacente);
-                    visiteds.add(adjacente.getNome());
+
+            LinkedList<Node> adjacentes = mapaAdjacente.get(atual);
+            for(Node adjacente: adjacentes){
+                if(!visited.contains(adjacente.getNome())){
+                    visited.add(adjacente.getNome());
                     stack.add(adjacente);
                     count++;
                 }
             }
-            visiteds.add(atual.getNome());
         }
 
-        return ll;
+        return null;
     }
+
+    public boolean DLS(Node atual, Node objetivo, int limiteProfundidade, Set<Node> path) {
+        //Ponto de parada
+        if (atual.equals(objetivo)) {
+            System.out.println("Objetivo encontrado: " + atual.getNome());
+            return true;
+        } else if (limiteProfundidade == 0) {
+            System.out.println(path);
+            return false;
+        } else {
+            for (Node adjacente : mapaAdjacente.get(atual)) {
+                path.add(adjacente);
+                if (DLS(adjacente, objetivo, limiteProfundidade - 1, path)) {
+                    System.out.println(atual.getNome() + " -> " + adjacente.getNome());
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
 
     @Override
     public String toString() {
