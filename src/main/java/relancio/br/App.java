@@ -1,14 +1,12 @@
 package relancio.br;
 
-import relancio.br.estrutura.Graph;
 import relancio.br.estrutura.Node;
+import relancio.br.estrutura.arvore.Tree;
+import relancio.br.estrutura.grafo.Graph;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.LinkedHashSet;
-import java.util.Scanner;
 
 public class App {
     public static void main( String[] args ) {
@@ -45,10 +43,13 @@ public class App {
             System.out.println(fn.getMessage());
         }
 
-        System.out.println(gr);
+       /* System.out.println(gr);
         System.out.println(gr.BFS(new Node("Lugoj"), new Node("Bucuresti")));
         System.out.println(gr.DFS(new Node("Lugoj"), new Node("Bucuresti")) );
-        System.out.println(gr.DLS(new Node("Lugoj"), new Node("Bucuresti"),3, new LinkedHashSet<>()));
+        System.out.println(gr.DLS(new Node("Lugoj"), new Node("Bucuresti"),5));*/
+
+        Tree arvore = new Tree();
+        System.out.println(arvore.convertToTree(new Node("Lugoj"), gr.mapaAdjacente()));
 
     }
 }

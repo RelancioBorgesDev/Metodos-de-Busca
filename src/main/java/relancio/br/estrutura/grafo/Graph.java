@@ -1,4 +1,6 @@
-package relancio.br.estrutura;
+package relancio.br.estrutura.grafo;
+
+import relancio.br.estrutura.Node;
 
 import java.util.*;
 
@@ -61,8 +63,9 @@ public class Graph {
         LinkedList<Node> path = new LinkedList<>();
         Stack<Node> stack = new Stack<>();
         Set<String> visited = new LinkedHashSet<>();
+
         stack.push(inicio);
-        int count = 0;
+
 
         while (!stack.isEmpty()){
             Node atual = stack.pop();
@@ -77,39 +80,58 @@ public class Graph {
             LinkedList<Node> adjacentes = mapaAdjacente.get(atual);
             for(Node adjacente: adjacentes){
                 if(!visited.contains(adjacente.getNome())){
-                    visited.add(adjacente.getNome());
                     stack.add(adjacente);
-                    count++;
                 }
             }
+
         }
 
         return null;
     }
+    //DLS
+    public Set<Node> DLS(Node atual, Node objetivo, int limiteProfundidade){
+        Set<Node> visiteds = new LinkedHashSet<>();
+        Stack<Node> stack = new Stack<>();
+        stack.add(atual);
 
-    public boolean DLS(Node atual, Node objetivo, int limiteProfundidade, Set<Node> path) {
-        //Ponto de parada
-        if (atual.equals(objetivo)) {
-            System.out.println("Objetivo encontrado: " + atual.getNome());
-            return true;
-        } else if (limiteProfundidade == 0) {
-            System.out.println(path);
-            return false;
-        } else {
-            for (Node adjacente : mapaAdjacente.get(atual)) {
-                path.add(adjacente);
-                if (DLS(adjacente, objetivo, limiteProfundidade - 1, path)) {
-                    System.out.println(atual.getNome() + " -> " + adjacente.getNome());
-                    return true;
+        while (!stack.isEmpty() && limiteProfundidade >= 0){
+            atual = stack.pop();
+            visiteds.add(atual);
+
+            if (atual.equals(objetivo)){
+                System.out.println("Objetivo encontrado: " + atual.getNome());
+                return visiteds;
+            }
+            LinkedList<Node> adjacentes = mapaAdjacente.get(atual);
+            if(adjacentes != null){
+                for(Node adjacente : adjacentes){
+                    if(!visiteds.contains(adjacente)){
+                        stack.add(adjacente);
+                    }
                 }
             }
-            return false;
+            --limiteProfundidade;
         }
+        return visiteds;
     }
-
 
     @Override
     public String toString() {
         return mapaAdjacente + "\n";
     }
+
+    public boolean isEmpty() {
+        return mapaAdjacente.isEmpty();
+    }
+
+    public LinkedList<Node> getNodes(Node key) {
+        return mapaAdjacente.get(key);
+    }
+
+    public HashMap<Node, LinkedList<Node>> mapaAdjacente(){
+        return mapaAdjacente;
+    }
+
+
+
 }
