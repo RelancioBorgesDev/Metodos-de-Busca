@@ -1,0 +1,29 @@
+Oradea,Zerind
+Oradea,Sibiu
+Zerind,Oradea
+Zerind,Arad
+Arad,Zerind
+Arad,Sibiu
+Arad,Timisoara
+Sibiu,Oradea
+Sibiu,Arad
+Sibiu,Fagaras
+Sibiu,Rimnicu Vilcea
+Timisoara,Lugoj
+Timisoara,Arad
+Lugoj,Mehadia
+Lugoj,Timisoara
+Mehadia,Lugoj
+Mehadia,Dobreta
+Dobreta,Craiova
+Craiova,Dobreta
+Craiova,Rimnicu Vilcea
+Craiova,Pitesti
+Rimnicu Vilcea,Craiova
+Rimnicu Vilcea,Pitesti
+Rimnicu Vilcea,Sibiu
+Fagaras,Sibiu
+Fagaras,Bucuresti
+Pitesti,Rimnicu Vilcea
+Pitesti,Craiova
+Pitesti,Bucuresti
